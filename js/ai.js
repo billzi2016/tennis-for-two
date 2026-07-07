@@ -18,6 +18,9 @@ export function updateAi(ai, ball, dt, rally) {
   ai.cooldown = Math.max(0, ai.cooldown - dt);
   ai.glow = Math.max(0, ai.glow - dt * 3.4);
   ai.planAge += dt;
+  if (ai.lastPlan) {
+    ai.lastPlan.time = Math.max(0, ai.lastPlan.time - dt);
+  }
   if (!isPlanUsable(ai, ball)) {
     ai.lastPlan = planInterception(ai, ball);
     ai.planAge = 0;

@@ -46,19 +46,6 @@ function drawCourt(ctx) {
 
 function drawPlayers(ctx, players) {
   for (const player of players) {
-    if (player.lastPlan) {
-      ctx.save();
-      ctx.globalAlpha = 0.22;
-      ctx.strokeStyle = "#8affaa";
-      ctx.shadowColor = "#8affaa";
-      ctx.shadowBlur = 10;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(player.lastPlan.x, player.lastPlan.y, 10, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
-    }
-
     ctx.save();
     ctx.globalAlpha = 0.48 + player.glow * 0.5;
     ctx.strokeStyle = "#8affaa";
@@ -67,6 +54,11 @@ function drawPlayers(ctx, players) {
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.arc(player.x, player.y, 18 + player.glow * 7, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 0.72 + player.glow * 0.25;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, 7 + player.glow * 3, 0, Math.PI * 2);
     ctx.stroke();
     ctx.restore();
   }
