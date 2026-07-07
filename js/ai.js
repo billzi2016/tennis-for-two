@@ -9,6 +9,7 @@ export function createAi(player) {
     homeX: player.x,
     homeY: player.y,
     lastPlan: null,
+    planAge: 0,
     lastTarget: null
   };
 }
@@ -16,7 +17,11 @@ export function createAi(player) {
 export function updateAi(ai, ball, dt, rally) {
   ai.cooldown = Math.max(0, ai.cooldown - dt);
   ai.glow = Math.max(0, ai.glow - dt * 3.4);
-  ai.lastPlan = planInterception(ai, ball);
+  ai.planAge += dt;
+  if (!isPlanUsable(ai, ball)) {
+    ai.lastPlan = planInterception(ai, ball);
+    ai.planAge = 0;
+  }
 
   moveToPlan(ai, dt);
 
@@ -38,7 +43,20 @@ export function updateAi(ai, ball, dt, rally) {
   ball.vy = velocity.vy;
   ai.cooldown = AI.cooldown;
   ai.glow = 1;
+  ai.lastPlan = null;
+  ai.planAge = 0;
   return true;
+}
+
+function isPlanUsable(ai, ball) {
+  if (!ai.lastPlan || ai.planAge > 0.42 || !ballMovingToward(ai, ball)) {
+    return false;
+  }
+
+  const remainingX = ai.lastPlan.x - ball.x;
+  const stillAhead = ai.side < 0 ? remainingX < 8 : remainingX > -8;
+  const inRangeY = ai.lastPlan.y >= AI.minStrikeY && ai.lastPlan.y <= AI.maxStrikeY;
+  return stillAhead && inRangeY;
 }
 
 function planInterception(ai, ball) {

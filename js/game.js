@@ -33,8 +33,8 @@ function resetBall() {
 
 function rescueBall() {
   const from = {
-    x: clamp(state.ball.x, 105, WORLD.width - 105),
-    y: clamp(state.ball.y, 220, WORLD.groundY - 18)
+    x: state.ball.x,
+    y: state.ball.y
   };
   const toRight = from.x < WORLD.netX;
   const target = {
@@ -43,8 +43,6 @@ function rescueBall() {
   };
   const velocity = shotVelocity(from, target, 1.18);
 
-  state.ball.x = from.x;
-  state.ball.y = from.y;
   state.ball.vx = velocity.vx;
   state.ball.vy = velocity.vy;
   state.pulse = 0.75;
@@ -71,23 +69,15 @@ function update(dt) {
     rescueBall();
   }
 
-  if (isDead(state.ball)) {
-    rescueBall();
-  }
-
   state.pulse = Math.max(0, state.pulse - dt * 2.8);
 }
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
-}
-
 function needsSoftRescue() {
-  const nearGround = state.ball.y > WORLD.groundY - WORLD.ballRadius && state.ball.vy > 0;
-  const nearLeftWall = state.ball.x < 96 && state.ball.vx < 0;
-  const nearRightWall = state.ball.x > WORLD.width - 96 && state.ball.vx > 0;
-  const tooHigh = state.ball.y < 40 && state.ball.vy < -120;
-  return nearGround || nearLeftWall || nearRightWall || tooHigh;
+  const nearGround = state.ball.y > WORLD.groundY - 34 && state.ball.vy > 0;
+  const nearLeftWall = state.ball.x < 130 && state.ball.vx < 0;
+  const nearRightWall = state.ball.x > WORLD.width - 130 && state.ball.vx > 0;
+  const tooHigh = state.ball.y < 70 && state.ball.vy < -120;
+  return nearGround || nearLeftWall || nearRightWall || tooHigh || isDead(state.ball);
 }
 
 function loop(now) {
