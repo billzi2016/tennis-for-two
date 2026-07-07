@@ -36,6 +36,8 @@ export const PLAYERS = {
 export const AI = {
   hitRadius: 34,
   moveSpeed: 1450,
+  minMoveSpeed: 120,
+  arrivalLeadTime: 0.08,
   approachWindow: 0.58,
   planLockTime: 0.9,
   strikeLeadTime: 0.055,

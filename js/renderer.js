@@ -11,10 +11,10 @@ export function createRenderer(canvas) {
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
       drawCourt(ctx);
-      drawPlayers(ctx, state.players);
       drawBall(ctx, state.ball, state.pulse);
       drawNoise(ctx);
       ctx.restore();
+      drawPlayers(ctx, state.players);
     }
   };
 }
@@ -46,7 +46,11 @@ function drawCourt(ctx) {
 
 function drawPlayers(ctx, players) {
   for (const player of players) {
+    const canReceive = Boolean(player.lastPlan);
+
     ctx.save();
+    clearPlayerHalo(ctx, player);
+    ctx.globalCompositeOperation = "lighter";
     ctx.globalAlpha = 0.48 + player.glow * 0.5;
     ctx.strokeStyle = "#8affaa";
     ctx.shadowColor = "#8affaa";
@@ -55,13 +59,32 @@ function drawPlayers(ctx, players) {
     ctx.beginPath();
     ctx.arc(player.x, player.y, 18 + player.glow * 7, 0, Math.PI * 2);
     ctx.stroke();
-    ctx.globalAlpha = 0.72 + player.glow * 0.25;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(player.x, player.y, 7 + player.glow * 3, 0, Math.PI * 2);
-    ctx.stroke();
+
+    if (canReceive) {
+      ctx.globalAlpha = 0.72 + player.glow * 0.25;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, 7 + player.glow * 3, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
     ctx.restore();
   }
+}
+
+function clearPlayerHalo(ctx, player) {
+  ctx.save();
+  ctx.globalCompositeOperation = "source-over";
+  const radius = 42 + player.glow * 10;
+  const gradient = ctx.createRadialGradient(player.x, player.y, 0, player.x, player.y, radius);
+  gradient.addColorStop(0, "rgba(0, 8, 3, 0.88)");
+  gradient.addColorStop(0.58, "rgba(0, 8, 3, 0.52)");
+  gradient.addColorStop(1, "rgba(0, 8, 3, 0)");
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 function drawBall(ctx, ball, pulse) {

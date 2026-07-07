@@ -114,7 +114,10 @@ function moveToPlan(ai, dt) {
   const dx = target.x - ai.x;
   const dy = target.y - ai.y;
   const distance = Math.hypot(dx, dy);
-  const step = AI.moveSpeed * dt;
+  const timeRemaining = ai.lastPlan ? Math.max(ai.lastPlan.time - AI.arrivalLeadTime, dt) : 0.55;
+  const plannedSpeed = distance / timeRemaining;
+  const speed = clamp(plannedSpeed, AI.minMoveSpeed, AI.moveSpeed);
+  const step = speed * dt;
 
   if (distance <= step || distance === 0) {
     ai.x = target.x;
