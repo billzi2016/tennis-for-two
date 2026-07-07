@@ -110,8 +110,7 @@ function scoreStrikePoint(ai, point) {
 }
 
 function moveToPlan(ai, dt) {
-  const shouldApproach = ai.lastPlan && ai.lastPlan.time <= AI.approachWindow;
-  const target = shouldApproach ? ai.lastPlan : { x: ai.homeX, y: ai.homeY };
+  const target = ai.lastPlan || { x: ai.homeX, y: ai.homeY };
   const dx = target.x - ai.x;
   const dy = target.y - ai.y;
   const distance = Math.hypot(dx, dy);
