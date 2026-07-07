@@ -1,0 +1,92 @@
+:root {
+  color-scheme: dark;
+  --phosphor: #8affaa;
+  --phosphor-soft: rgba(138, 255, 170, 0.68);
+  --phosphor-faint: rgba(85, 220, 124, 0.22);
+  --screen: #000803;
+  --shell: #050706;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(42, 128, 62, 0.22), transparent 34%),
+    linear-gradient(135deg, #020303 0%, #10130f 52%, #020403 100%);
+  font-family: "SFMono-Regular", "Cascadia Code", "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+
+.background-math {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: rgba(190, 255, 205, 0.22);
+  font-family: "Comic Sans MS", "Bradley Hand", "Segoe Print", "Marker Felt", cursive;
+  text-shadow: 0 0 10px rgba(138, 255, 170, 0.12);
+}
+
+.background-math::before,
+.background-math::after {
+  content: none;
+}
+
+.smith-chart {
+  position: absolute;
+  color: rgba(138, 255, 170, 0.18);
+  filter: drop-shadow(0 0 16px rgba(138, 255, 170, 0.12));
+}
+
+.smith-chart-left {
+  width: 680px;
+  height: 680px;
+  left: -230px;
+  top: 48px;
+}
+
+.smith-chart-right {
+  width: 820px;
+  height: 820px;
+  right: -300px;
+  bottom: -250px;
+  opacity: 0.86;
+}
+
+.smith-major {
+  stroke: rgba(138, 255, 170, 0.2);
+  stroke-width: 0.006;
+  fill: none;
+}
+
+.smith-minor {
+  stroke: rgba(138, 255, 170, 0.1);
+  stroke-width: 0.0035;
+  fill: none;
+}
+
+.smith-axis {
+  stroke: rgba(190, 255, 205, 0.18);
+  stroke-width: 0.005;
+  fill: none;
+}
+
+.formula {
+  position: absolute;
+  line-height: 1;
+  white-space: nowrap;
+  transform-origin: left center;
+  user-select: none;
+}

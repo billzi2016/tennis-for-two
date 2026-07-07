@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tennis for Two - Oscilloscope AI</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/scope.css">
+    <link rel="stylesheet" href="css/hud.css">
+  </head>
+  <body>
+    <div class="background-math" aria-hidden="true"></div>
+    <main class="scope-shell" aria-label="Tennis for Two automatic oscilloscope simulation">
+      <canvas id="game" width="1280" height="720"></canvas>
+      <div class="hud" aria-hidden="true">
+        <span>TENNIS FOR TWO</span>
+        <span>·</span>
+        <span>1958</span>
+        <span>·</span>
+        <span>AUTO RALLY</span>
+        <span>·</span>
+        <span id="rally">0000</span>
+        <span>·</span>
+        <span>HEURISTIC SOLVER</span>
+      </div>
+      <div class="bezel" aria-hidden="true"></div>
+    </main>
+    <script type="module" src="js/background-formulas.js"></script>
+    <script type="module" src="js/game.js"></script>
+  </body>
+</html>

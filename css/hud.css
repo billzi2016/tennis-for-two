@@ -1,0 +1,25 @@
+.hud {
+  position: absolute;
+  right: 22px;
+  bottom: -42px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--phosphor-soft);
+  font-family: "SFMono-Regular", "Cascadia Code", "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: 0 0 10px rgba(138, 255, 170, 0.82);
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .hud {
+    right: 14px;
+    bottom: -34px;
+    gap: 6px;
+    font-size: 10px;
+  }
+}
