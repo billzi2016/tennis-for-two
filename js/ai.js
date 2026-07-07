@@ -49,7 +49,7 @@ export function updateAi(ai, ball, dt, rally) {
 }
 
 function isPlanUsable(ai, ball) {
-  if (!ai.lastPlan || ai.planAge > 0.42 || !ballMovingToward(ai, ball)) {
+  if (!ai.lastPlan || ai.planAge > AI.planLockTime || !ballMovingToward(ai, ball)) {
     return false;
   }
 
@@ -107,7 +107,8 @@ function scoreStrikePoint(ai, point) {
 }
 
 function moveToPlan(ai, dt) {
-  const target = ai.lastPlan || { x: ai.homeX, y: ai.homeY };
+  const shouldApproach = ai.lastPlan && ai.lastPlan.time <= AI.approachWindow;
+  const target = shouldApproach ? ai.lastPlan : { x: ai.homeX, y: ai.homeY };
   const dx = target.x - ai.x;
   const dy = target.y - ai.y;
   const distance = Math.hypot(dx, dy);
